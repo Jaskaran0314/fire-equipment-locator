@@ -1,0 +1,169 @@
+<!--pages/user-manage/user-manage.wxml-->
+<view class="container">
+  <!-- 当前用户信息 -->
+  <view class="user-info-card">
+    <view class="avatar">
+      <text class="avatar-text">{{userInfo.real_name[0]}}</text>
+    </view>
+    <view class="info">
+      <view class="name">{{userInfo.real_name}}</view>
+      <view class="role">{{userInfo.is_admin ? '管理员' : '普通用户'}}</view>
+    </view>
+  </view>
+
+  <!-- 用户详情 -->
+  <view class="section">
+    <view class="section-title">个人信息</view>
+    <view class="info-list">
+      <view class="info-item">
+        <text class="label">用户名</text>
+        <text class="value">{{userInfo.username}}</text>
+      </view>
+      <view class="info-item">
+        <text class="label">真实姓名</text>
+        <text class="value">{{userInfo.real_name}}</text>
+      </view>
+      <view class="info-item">
+        <text class="label">联系方式</text>
+        <text class="value">{{userInfo.phone}}</text>
+      </view>
+      <view class="info-item">
+        <text class="label">用户类型</text>
+        <text class="value">{{userInfo.is_admin ? '管理员' : '普通用户'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 用户管理（管理员） -->
+  <view wx:if="{{userInfo.is_admin}}" class="section">
+    <view class="section-header">
+      <text class="section-title">用户管理</text>
+      <button class="add-btn" size="mini" type="primary" bindtap="showAddUser">
+        新增用户
+      </button>
+    </view>
+    
+    <view class="user-list">
+      <view wx:for="{{users}}" wx:key="id" class="user-item">
+        <view class="user-avatar">
+          <text>{{item.real_name[0]}}</text>
+        </view>
+        <view class="user-info">
+          <view class="user-name">
+            {{item.real_name}}
+            <text wx:if="{{item.is_admin}}" class="admin-badge">管理员</text>
+          </view>
+          <view class="user-meta">
+            <text>{{item.username}}</text>
+            <text class="separator">|</text>
+            <text>{{item.phone}}</text>
+          </view>
+        </view>
+        <view class="user-actions">
+          <button
+            class="action-btn"
+            size="mini"
+            bindtap="showEditUser"
+            data-user="{{item}}"
+          >
+            编辑
+          </button>
+          <button
+            wx:if="{{!item.is_admin}}"
+            class="action-btn delete"
+            size="mini"
+            bindtap="deleteUser"
+            data-user="{{item}}"
+          >
+            删除
+          </button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 退出登录按钮 -->
+  <view class="logout-wrapper">
+    <button class="logout-btn" bindtap="logout">退出登录</button>
+  </view>
+
+  <!-- 用户编辑弹窗 -->
+  <view wx:if="{{showUserModal}}" class="modal-mask" bindtap="closeModal">
+    <view class="modal-content" catchtap>
+      <view class="modal-header">
+        <text class="modal-title">{{modalType === 'add' ? '新增用户' : '编辑用户'}}</text>
+        <view class="close-btn" bindtap="closeModal">×</view>
+      </view>
+      
+      <view class="modal-body">
+        <view class="form-item">
+          <text class="label">用户名</text>
+          <input
+            class="input"
+            placeholder="请输入用户名"
+            value="{{formData.username}}"
+            data-field="username"
+            bindinput="onInput"
+            disabled="{{modalType === 'edit'}}"
+          />
+        </view>
+        
+        <view wx:if="{{modalType === 'add' || formData.password}}" class="form-item">
+          <text class="label">{{modalType === 'add' ? '密码' : '新密码'}}</text>
+          <input
+            class="input"
+            type="password"
+            placeholder="{{modalType === 'add' ? '请输入密码' : '不修改请留空'}}"
+            value="{{formData.password}}"
+            data-field="password"
+            bindinput="onInput"
+          />
+        </view>
+        
+        <view class="form-item">
+          <text class="label">真实姓名</text>
+          <input
+            class="input"
+            placeholder="请输入真实姓名"
+            value="{{formData.real_name}}"
+            data-field="real_name"
+            bindinput="onInput"
+          />
+        </view>
+        
+        <view class="form-item">
+          <text class="label">联系方式</text>
+          <input
+            class="input"
+            type="number"
+            maxlength="11"
+            placeholder="请输入手机号"
+            value="{{formData.phone}}"
+            data-field="phone"
+            bindinput="onInput"
+          />
+        </view>
+        
+        <view class="form-item">
+          <text class="label">管理员权限</text>
+          <switch
+            checked="{{formData.is_admin}}"
+            bindchange="onAdminChange"
+          />
+        </view>
+      </view>
+      
+      <view class="modal-footer">
+        <button class="modal-btn cancel" bindtap="closeModal">取消</button>
+        <button
+          class="modal-btn confirm"
+          loading="{{loading}}"
+          disabled="{{loading}}"
+          bindtap="saveUser"
+        >
+          确定
+        </button>
+      </view>
+    </view>
+  </view>
+</view>

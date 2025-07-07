@@ -1,0 +1,117 @@
+<!--pages/alarm/alarm.wxml-->
+<view class="container">
+  <!-- 筛选栏 -->
+  <view class="filter-bar">
+    <!-- 设备筛选 -->
+    <picker
+      class="device-picker"
+      range="{{devices}}"
+      range-key="device_name"
+      value="{{deviceIndex}}"
+      bindchange="onDeviceChange"
+    >
+      <view class="picker-content">
+        <text>{{deviceIndex >= 0 ? devices[deviceIndex].device_name : '全部设备'}}</text>
+        <text class="arrow">▼</text>
+      </view>
+    </picker>
+
+    <!-- 状态切换 -->
+    <view class="tabs">
+      <view
+        class="tab {{showActive ? 'active' : ''}}"
+        data-type="active"
+        bindtap="onTabChange"
+      >
+        激活报警
+      </view>
+      <view
+        class="tab {{!showActive ? 'active' : ''}}"
+        data-type="history"
+        bindtap="onTabChange"
+      >
+        历史记录
+      </view>
+    </view>
+  </view>
+
+  <!-- 报警列表 -->
+  <view class="alarm-list">
+    <block wx:for="{{alarms}}" wx:key="id">
+      <view class="alarm-item {{getAlarmClass(item)}}">
+        <!-- 报警头部 -->
+        <view class="alarm-header">
+          <view class="alarm-type-badge">
+            {{getAlarmTypeText(item.alarm_type)}}
+          </view>
+          <view class="alarm-time">
+            {{formatTime(item.alarm_time)}}
+          </view>
+        </view>
+
+        <!-- 设备信息 -->
+        <view class="device-info" bindtap="goToDevice" data-device-id="{{item.device_id}}">
+          <view class="device-name">{{item.device_name}}</view>
+          <view class="device-meta">
+            <text>设备ID: {{item.device_id}}</text>
+            <text class="separator">|</text>
+            <text>{{item.organization}}</text>
+          </view>
+        </view>
+
+        <!-- 报警详情 -->
+        <view class="alarm-details">
+          <view wx:if="{{item.alarm_type === 'move'}}" class="detail-item">
+            <text class="label">报警原因：</text>
+            <text class="value">设备移动超过20米安全范围</text>
+          </view>
+          <view wx:elif="{{item.alarm_type === 'offline'}}" class="detail-item">
+            <text class="label">报警原因：</text>
+            <text class="value">定位终端掉线</text>
+          </view>
+          
+          <view wx:if="{{item.alarm_location}}" class="detail-item">
+            <text class="label">报警位置：</text>
+            <text class="value">{{item.alarm_location.lat.toFixed(6)}}, {{item.alarm_location.lng.toFixed(6)}}</text>
+          </view>
+
+          <view wx:if="{{!item.is_active && item.resolved_at}}" class="detail-item">
+            <text class="label">解除时间：</text>
+            <text class="value">{{formatTime(item.resolved_at)}}</text>
+          </view>
+        </view>
+
+        <!-- 操作按钮 -->
+        <view class="alarm-actions">
+          <button
+            wx:if="{{item.alarm_location}}"
+            class="action-btn"
+            size="mini"
+            bindtap="goToMap"
+            data-alarm="{{item}}"
+          >
+            查看位置
+          </button>
+          <view wx:if="{{item.is_active}}" class="status-badge active">
+            处理中
+          </view>
+          <view wx:else class="status-badge resolved">
+            已解除
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:if="{{!loading && alarms.length === 0}}" class="empty">
+    <text class="empty-text">
+      {{showActive ? '暂无激活的报警' : '暂无报警记录'}}
+    </text>
+  </view>
+
+  <!-- 加载中 -->
+  <view wx:if="{{loading}}" class="loading">
+    <text>加载中...</text>
+  </view>
+</view>

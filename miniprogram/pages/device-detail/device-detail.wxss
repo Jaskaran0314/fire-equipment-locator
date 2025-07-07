@@ -1,0 +1,218 @@
+/* pages/device-detail/device-detail.wxss */
+.container {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding-bottom: 20rpx;
+}
+
+.content {
+  padding-bottom: 120rpx;
+}
+
+/* 状态卡片 */
+.status-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  padding: 40rpx;
+  margin: 20rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 20rpx rgba(102, 126, 234, 0.3);
+}
+
+.device-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.device-name {
+  font-size: 40rpx;
+  font-weight: bold;
+}
+
+.status {
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.status-online {
+  background: #4caf50;
+}
+
+.status-offline {
+  background: #f44336;
+}
+
+.status-unbound {
+  background: #999;
+}
+
+.device-id {
+  font-size: 28rpx;
+  opacity: 0.9;
+}
+
+/* 区块样式 */
+.section {
+  background: #fff;
+  margin: 20rpx;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* 信息列表 */
+.info-list {
+  margin-top: 10rpx;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 16rpx 0;
+  border-bottom: 1px solid #f9f9f9;
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.label {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.value {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  text-align: right;
+  flex: 1;
+  margin-left: 20rpx;
+}
+
+.value.phone {
+  color: #1989fa;
+  text-decoration: underline;
+}
+
+.empty-tips {
+  text-align: center;
+  color: #999;
+  font-size: 28rpx;
+  padding: 40rpx 0;
+}
+
+.tips {
+  font-size: 24rpx;
+  color: #ff9800;
+  margin-top: 16rpx;
+  padding: 16rpx;
+  background: #fff8f0;
+  border-radius: 8rpx;
+}
+
+/* 报警区块 */
+.alarm-section {
+  border: 1px solid #ffdddd;
+  background: #fff5f5;
+}
+
+.alarm-section .section-title {
+  color: #ff4444;
+  border-bottom-color: #ffdddd;
+}
+
+.alarm-list {
+  margin-top: 10rpx;
+}
+
+.alarm-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16rpx 0;
+  border-bottom: 1px solid #ffe5e5;
+}
+
+.alarm-item:last-child {
+  border-bottom: none;
+}
+
+.alarm-type {
+  font-size: 28rpx;
+  color: #ff4444;
+  font-weight: 500;
+}
+
+.alarm-time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 操作按钮 */
+.actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding: 20rpx;
+  box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.05);
+  display: flex;
+  gap: 20rpx;
+}
+
+.action-btn {
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  background: #f5f5f5;
+  color: #333;
+  border: none;
+}
+
+.action-btn.primary {
+  background: #1989fa;
+  color: #fff;
+}
+
+.action-btn.danger {
+  background: #ff4444;
+  color: #fff;
+}
+
+/* 加载和空状态 */
+.loading,
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 200rpx 0;
+}
+
+.loading text,
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 40rpx;
+}
+
+.empty button {
+  margin-top: 20rpx;
+}

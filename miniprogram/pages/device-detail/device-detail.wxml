@@ -1,0 +1,124 @@
+<!--pages/device-detail/device-detail.wxml-->
+<view class="container">
+  <view wx:if="{{device}}" class="content">
+    <!-- 设备状态卡片 -->
+    <view class="status-card">
+      <view class="device-header">
+        <view class="device-name">{{device.device_name}}</view>
+        <view class="status {{getStatusClass(device)}}">
+          {{getStatusText(device)}}
+        </view>
+      </view>
+      <view class="device-id">设备ID: {{device.device_id}}</view>
+    </view>
+
+    <!-- 基本信息 -->
+    <view class="section">
+      <view class="section-title">基本信息</view>
+      <view class="info-list">
+        <view class="info-item">
+          <text class="label">设备类型</text>
+          <text class="value">{{device.device_type}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">所属机构</text>
+          <text class="value">{{device.organization}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">联系人</text>
+          <text class="value">{{device.contact_person}}</text>
+        </view>
+        <view class="info-item" bindtap="makePhoneCall">
+          <text class="label">联系方式</text>
+          <text class="value phone">{{device.contact_phone}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">创建时间</text>
+          <text class="value">{{formatTime(device.created_at)}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">更新时间</text>
+          <text class="value">{{formatTime(device.updated_at)}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 终端信息 -->
+    <view class="section">
+      <view class="section-title">终端信息</view>
+      <view wx:if="{{device.terminal_id}}" class="info-list">
+        <view class="info-item">
+          <text class="label">终端ID</text>
+          <text class="value">{{device.terminal_id}}</text>
+        </view>
+        <view wx:if="{{device.last_position}}" class="info-item">
+          <text class="label">最新位置</text>
+          <text class="value">{{device.last_position.lat.toFixed(6)}}, {{device.last_position.lng.toFixed(6)}}</text>
+        </view>
+      </view>
+      <view wx:else class="empty-tips">
+        未绑定定位终端
+      </view>
+    </view>
+
+    <!-- 确认位置信息 -->
+    <view wx:if="{{device.location}}" class="section">
+      <view class="section-title">确认位置</view>
+      <view class="info-list">
+        <view class="info-item">
+          <text class="label">经纬度</text>
+          <text class="value">{{device.location.lat.toFixed(6)}}, {{device.location.lng.toFixed(6)}}</text>
+        </view>
+        <view class="tips">
+          设备移动超过此位置20米将触发报警
+        </view>
+      </view>
+    </view>
+
+    <!-- 报警信息 -->
+    <view wx:if="{{device.active_alarms && device.active_alarms.length > 0}}" class="section alarm-section">
+      <view class="section-title">当前报警</view>
+      <view class="alarm-list">
+        <view wx:for="{{device.active_alarms}}" wx:key="id" class="alarm-item">
+          <view class="alarm-type">{{item.alarm_type === 'move' ? '移动报警' : '掉线报警'}}</view>
+          <view class="alarm-time">{{formatTime(item.alarm_time)}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="actions">
+      <button class="action-btn primary" bindtap="goToMap">
+        查看位置
+      </button>
+      <button 
+        wx:if="{{device.terminal_status === 'online'}}"
+        class="action-btn" 
+        bindtap="goToTrack"
+      >
+        查看轨迹
+      </button>
+      <button class="action-btn" bindtap="editDevice">
+        编辑信息
+      </button>
+      <button 
+        wx:if="{{userInfo.is_admin}}"
+        class="action-btn danger" 
+        bindtap="deleteDevice"
+      >
+        删除设备
+      </button>
+    </view>
+  </view>
+
+  <!-- 加载中 -->
+  <view wx:if="{{loading}}" class="loading">
+    <text>加载中...</text>
+  </view>
+
+  <!-- 错误状态 -->
+  <view wx:if="{{!loading && !device}}" class="empty">
+    <text class="empty-text">设备不存在或已被删除</text>
+    <button bindtap="loadDevice">重新加载</button>
+  </view>
+</view>

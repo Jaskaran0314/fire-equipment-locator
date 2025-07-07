@@ -1,0 +1,211 @@
+/* pages/alarm/alarm.wxss */
+.container {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 筛选栏 */
+.filter-bar {
+  background: #fff;
+  padding: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.device-picker {
+  width: 100%;
+  margin-bottom: 20rpx;
+}
+
+.picker-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16rpx 20rpx;
+  border: 1px solid #e0e0e0;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+}
+
+.arrow {
+  color: #999;
+  font-size: 24rpx;
+}
+
+.tabs {
+  display: flex;
+  border: 1px solid #e0e0e0;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 0;
+  font-size: 28rpx;
+  color: #666;
+  background: #fff;
+  transition: all 0.3s;
+}
+
+.tab.active {
+  background: #1989fa;
+  color: #fff;
+}
+
+/* 报警列表 */
+.alarm-list {
+  padding: 20rpx;
+}
+
+.alarm-item {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  border-left: 4rpx solid transparent;
+}
+
+.alarm-item.alarm-move {
+  border-left-color: #ff9800;
+}
+
+.alarm-item.alarm-offline {
+  border-left-color: #f44336;
+}
+
+/* 报警头部 */
+.alarm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.alarm-type-badge {
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #fff;
+}
+
+.alarm-move .alarm-type-badge {
+  background: #ff9800;
+}
+
+.alarm-offline .alarm-type-badge {
+  background: #f44336;
+}
+
+.alarm-time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 设备信息 */
+.device-info {
+  padding: 20rpx 0;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 20rpx;
+}
+
+.device-name {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.device-meta {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.separator {
+  margin: 0 10rpx;
+  color: #e0e0e0;
+}
+
+/* 报警详情 */
+.alarm-details {
+  margin-bottom: 20rpx;
+}
+
+.detail-item {
+  display: flex;
+  margin-bottom: 12rpx;
+  font-size: 26rpx;
+}
+
+.detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  color: #999;
+  width: 140rpx;
+  flex-shrink: 0;
+}
+
+.value {
+  color: #333;
+  flex: 1;
+}
+
+/* 操作按钮 */
+.alarm-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action-btn {
+  background: #1989fa;
+  color: #fff;
+  border: none;
+  font-size: 24rpx;
+}
+
+.status-badge {
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+}
+
+.status-badge.active {
+  background: #ffe5e5;
+  color: #ff4444;
+}
+
+.status-badge.resolved {
+  background: #e8f5e9;
+  color: #4caf50;
+}
+
+/* 空状态 */
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 200rpx 0;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 加载中 */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 0;
+  color: #999;
+  font-size: 28rpx;
+}

@@ -1,0 +1,118 @@
+<!--pages/device-edit/device-edit.wxml-->
+<view class="container">
+  <view class="form">
+    <!-- 设备名称 -->
+    <view class="form-item">
+      <view class="label required">设备名称</view>
+      <input
+        class="input"
+        placeholder="请输入设备名称"
+        value="{{formData.device_name}}"
+        data-field="device_name"
+        bindinput="onInput"
+      />
+    </view>
+
+    <!-- 设备ID -->
+    <view class="form-item">
+      <view class="label required">设备ID</view>
+      <input
+        class="input"
+        placeholder="请输入设备ID"
+        value="{{formData.device_id}}"
+        data-field="device_id"
+        bindinput="onInput"
+        disabled="{{isEdit}}"
+      />
+    </view>
+
+    <!-- 所属机构 -->
+    <view class="form-item">
+      <view class="label required">所属机构</view>
+      <input
+        class="input"
+        placeholder="请输入所属机构"
+        value="{{formData.organization}}"
+        data-field="organization"
+        bindinput="onInput"
+      />
+    </view>
+
+    <!-- 联系人 -->
+    <view class="form-item">
+      <view class="label required">联系人</view>
+      <input
+        class="input"
+        placeholder="请输入联系人姓名"
+        value="{{formData.contact_person}}"
+        data-field="contact_person"
+        bindinput="onInput"
+      />
+    </view>
+
+    <!-- 联系方式 -->
+    <view class="form-item">
+      <view class="label required">联系方式</view>
+      <input
+        class="input"
+        type="number"
+        maxlength="11"
+        placeholder="请输入手机号"
+        value="{{formData.contact_phone}}"
+        data-field="contact_phone"
+        bindinput="onInput"
+      />
+    </view>
+
+    <!-- 设备类型 -->
+    <view class="form-item">
+      <view class="label required">设备类型</view>
+      <picker
+        class="picker"
+        range="{{deviceTypes}}"
+        value="{{typeIndex}}"
+        bindchange="onTypeChange"
+      >
+        <view class="picker-value">
+          {{formData.device_type || '请选择设备类型'}}
+          <text class="arrow">▼</text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 绑定终端 -->
+    <view class="form-item">
+      <view class="label">绑定终端</view>
+      <picker
+        class="picker"
+        range="{{terminals}}"
+        range-key="terminal_id"
+        value="{{terminalIndex}}"
+        bindchange="onTerminalChange"
+      >
+        <view class="picker-value">
+          {{terminalIndex >= 0 ? terminals[terminalIndex].terminal_id : '选择在线终端（可选）'}}
+          <text class="arrow">▼</text>
+        </view>
+      </picker>
+    </view>
+
+    <view wx:if="{{terminals.length === 0}}" class="tips">
+      暂无可用的在线终端
+    </view>
+  </view>
+
+  <!-- 按钮组 -->
+  <view class="button-group">
+    <button class="btn-cancel" bindtap="cancel">取消</button>
+    <button
+      class="btn-save"
+      type="primary"
+      loading="{{loading}}"
+      disabled="{{loading}}"
+      bindtap="save"
+    >
+      {{isEdit ? '更新' : '创建'}}
+    </button>
+  </view>
+</view>

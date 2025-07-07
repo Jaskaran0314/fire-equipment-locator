@@ -1,0 +1,253 @@
+/* pages/track/track.wxss */
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* 时间选择器 */
+.time-selector {
+  background: #fff;
+  padding: 20rpx;
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.selector-item {
+  flex: 1;
+}
+
+.selector-item .label {
+  font-size: 24rpx;
+  color: #666;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.picker-value {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12rpx 16rpx;
+  border: 1px solid #e0e0e0;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+}
+
+.arrow {
+  color: #999;
+  font-size: 20rpx;
+}
+
+.query-btn {
+  margin-top: 24rpx;
+}
+
+/* 设备信息栏 */
+.device-info {
+  background: #fff;
+  padding: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #f0f0f0;
+}
+
+.device-name {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.device-id {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 地图 */
+.map {
+  flex: 1;
+  width: 100%;
+}
+
+/* 播放控制 */
+.play-controls {
+  position: absolute;
+  right: 20rpx;
+  bottom: 40rpx;
+}
+
+.control-btn {
+  width: 100rpx;
+  height: 100rpx;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.2);
+}
+
+.control-btn.play {
+  background: #1989fa;
+}
+
+.control-btn.stop {
+  background: #ff4444;
+}
+
+.control-icon {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+/* 统计信息 */
+.statistics {
+  background: #fff;
+  padding: 30rpx;
+  border-top: 1px solid #f0f0f0;
+}
+
+.stat-item {
+  margin-bottom: 16rpx;
+}
+
+.stat-item:last-child {
+  margin-bottom: 0;
+}
+
+.stat-label {
+  font-size: 26rpx;
+  color: #666;
+  margin-right: 20rpx;
+}
+
+.stat-value {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+/* 轨迹列表 */
+.track-list {
+  background: #fff;
+  border-top: 1px solid #f0f0f0;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 30rpx;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.list-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.list-count {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.list-content {
+  height: 400rpx;
+}
+
+.track-item {
+  display: flex;
+  padding: 20rpx 30rpx;
+  border-bottom: 1px solid #f9f9f9;
+  transition: background 0.3s;
+}
+
+.track-item.active {
+  background: #e3f2fd;
+}
+
+.track-index {
+  width: 60rpx;
+  height: 60rpx;
+  background: #f0f0f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  color: #666;
+  margin-right: 20rpx;
+}
+
+.track-item.active .track-index {
+  background: #1989fa;
+  color: #fff;
+}
+
+.track-info {
+  flex: 1;
+}
+
+.track-time {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.track-location {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.track-speed {
+  margin-left: 20rpx;
+  color: #1989fa;
+}
+
+/* 空状态 */
+.empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 0;
+}
+
+.empty-text {
+  font-size: 32rpx;
+  color: #666;
+  margin-bottom: 16rpx;
+}
+
+.empty-tips {
+  font-size: 26rpx;
+  color: #999;
+}
+
+/* 加载遮罩 */
+.loading-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.loading-content {
+  background: #fff;
+  padding: 40rpx 60rpx;
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  color: #666;
+}

@@ -1,0 +1,120 @@
+<!--pages/track/track.wxml-->
+<view class="container">
+  <!-- 时间选择器 -->
+  <view class="time-selector">
+    <view class="selector-item">
+      <text class="label">开始日期</text>
+      <picker mode="date" value="{{startDate}}" bindchange="onStartDateChange">
+        <view class="picker-value">
+          {{startDate}}
+          <text class="arrow">▼</text>
+        </view>
+      </picker>
+    </view>
+    
+    <view class="selector-item">
+      <text class="label">结束日期</text>
+      <picker mode="date" value="{{endDate}}" bindchange="onEndDateChange">
+        <view class="picker-value">
+          {{endDate}}
+          <text class="arrow">▼</text>
+        </view>
+      </picker>
+    </view>
+    
+    <button class="query-btn" size="mini" type="primary" bindtap="queryTracks" loading="{{loading}}">
+      查询
+    </button>
+  </view>
+
+  <!-- 设备信息栏 -->
+  <view wx:if="{{device}}" class="device-info">
+    <text class="device-name">{{device.device_name}}</text>
+    <text class="device-id">ID: {{device.device_id}}</text>
+  </view>
+
+  <!-- 地图 -->
+  <map
+    id="trackMap"
+    class="map"
+    latitude="{{latitude}}"
+    longitude="{{longitude}}"
+    scale="{{scale}}"
+    polyline="{{polyline}}"
+    markers="{{markers}}"
+    show-location
+  >
+    <!-- 播放控制按钮 -->
+    <cover-view class="play-controls">
+      <cover-view 
+        wx:if="{{!playing && tracks.length > 0}}"
+        class="control-btn play"
+        bindtap="playTrack"
+      >
+        <cover-image src="/images/play.png" class="control-icon"></cover-image>
+      </cover-view>
+      
+      <cover-view 
+        wx:if="{{playing}}"
+        class="control-btn stop"
+        bindtap="stopTrack"
+      >
+        <cover-image src="/images/stop.png" class="control-icon"></cover-image>
+      </cover-view>
+    </cover-view>
+  </map>
+
+  <!-- 轨迹统计 -->
+  <view wx:if="{{tracks.length > 0}}" class="statistics">
+    <view class="stat-item">
+      <text class="stat-label">轨迹点数</text>
+      <text class="stat-value">{{tracks.length}}</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-label">总里程</text>
+      <text class="stat-value">{{getTotalDistance()}} km</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-label">时间范围</text>
+      <text class="stat-value">
+        {{tracks.length > 0 ? formatTime(tracks[0].report_time) : '-'}}
+        至
+        {{tracks.length > 0 ? formatTime(tracks[tracks.length-1].report_time) : '-'}}
+      </text>
+    </view>
+  </view>
+
+  <!-- 轨迹列表 -->
+  <view wx:if="{{tracks.length > 0}}" class="track-list">
+    <view class="list-header">
+      <text class="list-title">轨迹详情</text>
+      <text class="list-count">共 {{tracks.length}} 个点</text>
+    </view>
+    
+    <scroll-view class="list-content" scroll-y>
+      <view wx:for="{{tracks}}" wx:key="id" class="track-item {{playIndex === index ? 'active' : ''}}">
+        <view class="track-index">{{index + 1}}</view>
+        <view class="track-info">
+          <view class="track-time">{{formatTime(item.report_time)}}</view>
+          <view class="track-location">
+            <text>{{item.location.lat.toFixed(6)}}, {{item.location.lng.toFixed(6)}}</text>
+            <text wx:if="{{item.speed}}" class="track-speed">速度: {{item.speed}}km/h</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:if="{{!loading && tracks.length === 0}}" class="empty">
+    <text class="empty-text">暂无轨迹数据</text>
+    <text class="empty-tips">请选择时间范围后查询</text>
+  </view>
+
+  <!-- 加载中 -->
+  <view wx:if="{{loading}}" class="loading-mask">
+    <view class="loading-content">
+      <text>加载轨迹中...</text>
+    </view>
+  </view>
+</view>
