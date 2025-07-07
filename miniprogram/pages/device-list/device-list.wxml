@@ -1,0 +1,93 @@
+<!--pages/device-list/device-list.wxml-->
+<view class="container">
+  <!-- 页面标题栏 -->
+  <view class="header">
+    <text class="title">动火设备列表</text>
+    <button class="add-btn" bindtap="goToAdd" size="mini" type="primary">
+      新增设备
+    </button>
+  </view>
+
+  <!-- 设备列表 -->
+  <view class="device-list">
+    <block wx:for="{{devices}}" wx:key="device_id">
+      <view class="device-item" bindtap="goToDetail" data-id="{{item.device_id}}">
+        <!-- 设备基本信息 -->
+        <view class="device-header">
+          <view class="device-info">
+            <view class="device-name">{{item.device_name}}</view>
+            <view class="device-id">ID: {{item.device_id}}</view>
+          </view>
+          <view class="device-status">
+            <view class="status {{getStatusClass(item)}}">
+              {{formatStatus(item)}}
+            </view>
+            <view wx:if="{{hasAlarm(item)}}" class="alarm-badge">
+              {{item.active_alarms.length}}
+            </view>
+          </view>
+        </view>
+
+        <!-- 设备详细信息 -->
+        <view class="device-details">
+          <view class="detail-row">
+            <text class="label">所属机构：</text>
+            <text class="value">{{item.organization}}</text>
+          </view>
+          <view class="detail-row">
+            <text class="label">联系人：</text>
+            <text class="value">{{item.contact_person}} {{item.contact_phone}}</text>
+          </view>
+          <view class="detail-row">
+            <text class="label">设备类型：</text>
+            <text class="value">{{item.device_type}}</text>
+          </view>
+        </view>
+
+        <!-- 操作按钮 -->
+        <view class="device-actions">
+          <button
+            wx:if="{{item.terminal_status !== 'unbound'}}"
+            class="action-btn"
+            size="mini"
+            bindtap="goToMap"
+            data-device="{{item}}"
+            catchtap="goToMap"
+          >
+            查看位置
+          </button>
+          <button
+            wx:if="{{item.terminal_status === 'online'}}"
+            class="action-btn"
+            size="mini"
+            bindtap="goToTrack"
+            data-id="{{item.device_id}}"
+            catchtap="goToTrack"
+          >
+            查看轨迹
+          </button>
+        </view>
+
+        <!-- 报警信息 -->
+        <view wx:if="{{hasAlarm(item)}}" class="alarm-info">
+          <view wx:for="{{item.active_alarms}}" wx:key="id" wx:for-item="alarm">
+            <text class="alarm-text">{{alarm.alarm_type === 'move' ? '移动报警' : '掉线报警'}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:if="{{!loading && devices.length === 0}}" class="empty">
+    <text class="empty-text">暂无设备数据</text>
+    <button class="add-btn" bindtap="goToAdd" type="primary">
+      添加第一个设备
+    </button>
+  </view>
+
+  <!-- 加载中 -->
+  <view wx:if="{{loading}}" class="loading">
+    <text>加载中...</text>
+  </view>
+</view>

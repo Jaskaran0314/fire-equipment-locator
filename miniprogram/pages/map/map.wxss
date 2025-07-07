@@ -1,0 +1,215 @@
+/* pages/map/map.wxss */
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+}
+
+/* 控制按钮 */
+.controls {
+  position: absolute;
+  right: 20rpx;
+  bottom: 200rpx;
+}
+
+.control-btn {
+  width: 80rpx;
+  height: 80rpx;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.1);
+  margin-bottom: 20rpx;
+}
+
+.control-icon {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+/* 设备信息面板 */
+.device-panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 20rpx 20rpx 0 0;
+  box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.1);
+  padding: 30rpx;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.device-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.device-status {
+  font-size: 24rpx;
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+.device-status.online {
+  background: #e8f5e9;
+  color: #4caf50;
+}
+
+.device-status.offline {
+  background: #ffebee;
+  color: #f44336;
+}
+
+.panel-content {
+  margin-bottom: 30rpx;
+}
+
+.info-row {
+  display: flex;
+  margin-bottom: 16rpx;
+}
+
+.label {
+  font-size: 26rpx;
+  color: #666;
+  width: 160rpx;
+}
+
+.value {
+  font-size: 26rpx;
+  color: #333;
+  flex: 1;
+}
+
+.alarm-info {
+  margin-top: 20rpx;
+  padding: 16rpx;
+  background: #fff5f5;
+  border-radius: 8rpx;
+  border: 1px solid #ffdddd;
+}
+
+.alarm-title {
+  font-size: 26rpx;
+  color: #ff4444;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.alarm-item {
+  margin-bottom: 8rpx;
+}
+
+.alarm-type {
+  font-size: 24rpx;
+  color: #ff4444;
+}
+
+.panel-actions {
+  display: flex;
+  gap: 20rpx;
+}
+
+.action-btn {
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+}
+
+/* 确认对话框 */
+.confirm-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.dialog-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.dialog-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 40rpx;
+  width: 80%;
+  max-width: 600rpx;
+}
+
+.dialog-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+
+.dialog-body {
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.dialog-body text {
+  display: block;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 16rpx;
+}
+
+.warning {
+  color: #ff6b6b !important;
+  font-size: 24rpx !important;
+}
+
+.dialog-footer {
+  display: flex;
+  gap: 20rpx;
+}
+
+.dialog-btn {
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  border: 1px solid #e0e0e0;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  background: #fff;
+  color: #666;
+}
+
+.dialog-btn.primary {
+  background: #1989fa;
+  color: #fff;
+  border-color: #1989fa;
+}

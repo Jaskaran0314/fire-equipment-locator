@@ -1,0 +1,69 @@
+<!--pages/map/map.wxml-->
+<view class="container">
+  <!-- 地图组件 -->
+  <map
+    id="map"
+    class="map"
+    latitude="{{latitude}}"
+    longitude="{{longitude}}"
+    scale="{{scale}}"
+    markers="{{markers}}"
+    show-location
+    bindmarkertap="onMarkerTap"
+    bindtap="onMapTap"
+  >
+    <!-- 定位按钮 -->
+    <cover-view class="controls">
+      <cover-view class="control-btn" bindtap="moveToLocation">
+        <cover-image src="/images/location.png" class="control-icon"></cover-image>
+      </cover-view>
+    </cover-view>
+  </map>
+
+  <!-- 设备信息面板 -->
+  <view wx:if="{{selectedDevice}}" class="device-panel">
+    <view class="panel-header">
+      <text class="device-name">{{selectedDevice.device_name}}</text>
+      <text class="device-status {{selectedDevice.terminal_status === 'online' ? 'online' : 'offline'}}">
+        {{selectedDevice.terminal_status === 'online' ? '在线' : '离线'}}
+      </text>
+    </view>
+    <view class="panel-content">
+      <view class="info-row">
+        <text class="label">设备ID：</text>
+        <text class="value">{{selectedDevice.device_id}}</text>
+      </view>
+      <view class="info-row">
+        <text class="label">所属机构：</text>
+        <text class="value">{{selectedDevice.organization}}</text>
+      </view>
+      <view wx:if="{{selectedDevice.active_alarms && selectedDevice.active_alarms.length > 0}}" class="alarm-info">
+        <text class="alarm-title">当前报警：</text>
+        <view wx:for="{{selectedDevice.active_alarms}}" wx:key="id" class="alarm-item">
+          <text class="alarm-type">{{item.alarm_type === 'move' ? '移动报警' : '掉线报警'}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="panel-actions">
+      <button class="action-btn" type="primary" bindtap="confirmDeviceLocation" data-device="{{selectedDevice}}">
+        确认位置
+      </button>
+    </view>
+  </view>
+
+  <!-- 确认位置对话框 -->
+  <view wx:if="{{showConfirmDialog}}" class="confirm-dialog">
+    <view class="dialog-mask" bindtap="cancelConfirm"></view>
+    <view class="dialog-content">
+      <view class="dialog-title">确认新位置</view>
+      <view class="dialog-body">
+        <text>是否将选中的位置设为设备的确认位置？</text>
+        <text class="warning">设备移动超过20米将触发报警</text>
+      </view>
+      <view class="dialog-footer">
+        <button class="dialog-btn" bindtap="cancelConfirm">取消</button>
+        <button class="dialog-btn primary" bindtap="confirmNewLocation">确认</button>
+      </view>
+    </view>
+  </view>
+</view>
